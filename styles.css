@@ -1,0 +1,1216 @@
+/* ============================================
+   COCOCOOL - Premium Escape Room Experience
+   Dark Luxury | Cinematic | Award-Winning Style
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* ============================================
+   CSS VARIABLES - Design System
+   ============================================ */
+
+:root {
+  /* Colors - Dark Luxury Palette */
+  --color-bg-primary: #050505;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: #111111;
+
+  /* Accents */
+  --color-accent-gold: #d4af37;
+  --color-accent-gold-glow: rgba(212, 175, 55, 0.4);
+  --color-accent-red: #8a0a0a;
+  --color-accent-blue: #0a4a8a;
+
+  /* Text */
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #d0d0d0;
+  --color-text-muted: #888888;
+
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Playfair Display', serif;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  /* Section Spacing Responsive */
+  --section-spacing: 120px;
+
+  /* Effects */
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: all 0.3s ease;
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: 1px solid rgba(212, 175, 55, 0.2);
+  --glass-blur: blur(12px);
+}
+
+/* Mobile adjustments for variables */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 3.5rem;
+    --section-spacing: 80px;
+  }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.section-padding {
+  padding: var(--section-spacing) 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: 0 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--color-accent-gold);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+}
+
+.section-divider {
+  width: 100px;
+  height: 2px;
+  background: var(--color-accent-gold);
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--color-accent-gold);
+  background: var(--color-bg-primary);
+  rotate: 45deg;
+}
+
+.section-divider::before {
+  left: -5px;
+}
+
+.section-divider::after {
+  right: -5px;
+}
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  /* Remove blue highlight on mobile */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================
+   FILM GRAIN & ATMOSPHERIC SMOKE
+   ============================================ */
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(5, 5, 5, 1) 100%),
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px);
+  opacity: 0.6;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.site-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/img/dashboard.jpg') center/cover no-repeat;
+  opacity: 0.15;
+  z-index: -10;
+  pointer-events: none;
+}
+
+.smoke-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.smoke-layer svg {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.5);
+}
+
+@keyframes grain {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-2%, -4%);
+  }
+
+  20% {
+    transform: translate(-6%, 2%);
+  }
+
+  30% {
+    transform: translate(3%, -10%);
+  }
+
+  40% {
+    transform: translate(-2%, 10%);
+  }
+
+  50% {
+    transform: translate(-6%, 4%);
+  }
+
+  60% {
+    transform: translate(6%, 0%);
+  }
+
+  70% {
+    transform: translate(0%, 6%);
+  }
+
+  80% {
+    transform: translate(1%, 14%);
+  }
+
+  90% {
+    transform: translate(-4%, 4%);
+  }
+}
+
+.grain-overlay {
+  position: fixed;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  z-index: 9999;
+  pointer-events: none;
+  animation: grain 1s steps(5) infinite;
+}
+
+/* ============================================
+   SPOTLIGHT EFFECT
+   ============================================ */
+
+body::after {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle 400px at var(--spotlight-x) var(--spotlight-y),
+      rgba(212, 175, 55, 0.08) 0%,
+      transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: spotlightFadeIn 1s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes spotlightFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+}
+
+p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   ANIMATIONS & UTILS
+   ============================================ */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition-smooth);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+/* ============================================
+   FLATPICKR CUSTOMIZATION
+   ============================================ */
+.flatpickr-calendar {
+  background: rgba(17, 17, 17, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-accent-gold) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+  font-family: var(--font-heading) !important;
+}
+
+.flatpickr-day.selected {
+  background: var(--color-accent-gold) !important;
+  border-color: var(--color-accent-gold) !important;
+  color: #000 !important;
+  font-weight: bold;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  min-height: 100vh;
+  /* Fallback */
+  min-height: 100dvh;
+  /* Dynamic viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.hero__bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/img/dashboard.jpg') center/cover no-repeat;
+  z-index: -1;
+  animation: slowZoom 20s linear infinite alternate;
+}
+
+.hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, rgba(5, 5, 5, 0.8) 100%),
+    linear-gradient(to bottom, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 1));
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.15);
+  }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.hero__logo svg {
+  width: clamp(60px, 10vw, 80px);
+  height: clamp(60px, 10vw, 80px);
+}
+
+.hero__title {
+  color: var(--color-accent-gold);
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+.hero__tagline {
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  display: block;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.hero__cta {
+  display: inline-block;
+  padding: 1rem 3rem;
+  background: transparent;
+  border: 1px solid var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: var(--transition-fast);
+  margin-top: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__cta:hover {
+  background: var(--color-accent-gold);
+  color: var(--color-bg-primary);
+  box-shadow: 0 0 30px var(--color-accent-gold-glow);
+}
+
+.hero__scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.hero__scroll-indicator span {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--color-accent-gold), transparent);
+  display: block;
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+
+@keyframes scrollAnim {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   ROOM CARDS (GRID LAYOUT)
+   ============================================ */
+
+.rooms__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.room-card {
+  position: relative;
+  height: 600px;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  /* Slight rounding for modern feel */
+}
+
+.room-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-accent-gold);
+  box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15);
+}
+
+/* Responsive Grid adjustment */
+@media (max-width: 768px) {
+  .rooms__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .room-card {
+    height: 500px;
+    /* Smaller height on mobile */
+  }
+}
+
+/* Backgrounds */
+.room-card__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s ease;
+}
+
+.room-card:hover .room-card__background {
+  transform: scale(1.1);
+}
+
+.room-card__background--miercoles {
+  background: url('./assets/img/miercoles_bg_premium_1767110061707.png') center/cover no-repeat;
+}
+
+.room-card__background--shambala {
+  background: url('./assets/img/shambala_bg_premium_v2_1767110092350.png') center/cover no-repeat;
+}
+
+/* Overlay & Content */
+.room-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 10%, rgba(0, 0, 0, 0.6) 70%, transparent 100%);
+  transform: translateY(0);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.room-card__title {
+  font-size: 2.5rem;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.2rem;
+}
+
+.room-card__theme {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* Desktop: Hide details until hover */
+@media (min-width: 769px) {
+  .room-card__details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+  }
+
+  .room-card:hover .room-card__details {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+/* Mobile: Show details always (Better UX) */
+@media (max-width: 768px) {
+  .room-card__overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.4) 100%);
+    padding: 1.5rem;
+  }
+
+  .room-card__title {
+    font-size: 2rem;
+  }
+
+  .room-card__details {
+    max-height: auto;
+    opacity: 1;
+    margin-top: 1rem;
+    display: block;
+  }
+}
+
+.room-card__detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.room-card__cta {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  background: transparent;
+  border: 1px solid var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+
+.room-card__cta:hover,
+.room-card:hover .room-card__cta {
+  background: var(--color-accent-gold);
+  color: #000;
+}
+
+/* ============================================
+   ROOM PAGE (INNER)
+   ============================================ */
+
+/* ============================================
+   LANGUAGE TOGGLE (REFINED)
+   ============================================ */
+
+.lang-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  transition: var(--transition-medium);
+  opacity: 0.5;
+  border-bottom: 1px solid transparent;
+}
+
+.lang-toggle::before {
+  content: "";
+  display: none;
+  /* Removed the previous background */
+}
+
+.lang-btn:hover {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.lang-btn.active {
+  opacity: 1;
+  border-bottom: 1px solid var(--color-accent-gold);
+}
+
+/* Subtle separator between buttons */
+.lang-btn:not(:last-child)::after {
+  content: "|";
+  margin-left: 0.8rem;
+  color: rgba(212, 175, 55, 0.3);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .lang-toggle {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .lang-btn {
+    font-size: 0.8rem;
+  }
+}
+
+.room-page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  position: relative;
+}
+
+.room-page__back {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+
+  /* Glassmorphism for visibility over images */
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: var(--transition-fast);
+  z-index: 1000;
+  border-radius: 50px;
+}
+
+.room-page__back:hover {
+  background: var(--color-accent-gold);
+  color: #000;
+}
+
+/* Hero for Room Page */
+.room-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.room-hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6);
+}
+
+.room-hero__content {
+  z-index: 2;
+  padding: 0 1rem;
+}
+
+.room-hero__title {
+  font-size: clamp(3rem, 6vw, 6rem);
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+.room-hero__subtitle {
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Room Content Layout */
+.room-sections {
+  padding: var(--spacing-xl) 0;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .room-sections {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.room-text__title {
+  color: var(--color-accent-gold);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  display: inline-block;
+}
+
+/* Stats */
+.room-info__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.room-info__stat {
+  flex: 1;
+  min-width: 100px;
+}
+
+.room-info__stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.room-info__stat-value {
+  font-size: 1.3rem;
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+}
+
+/* Booking Section */
+.booking-calendar {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.95));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 2rem;
+  margin: 0 auto 3rem;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.calendar-inputs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-field input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-family: var(--font-heading);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--color-accent-gold);
+  color: #000;
+  border: none;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 200px;
+}
+
+.btn-primary:hover {
+  background: #fce38a;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   GALLERY
+   ============================================ */
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.gallery__item {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: grayscale(0.8);
+}
+
+.gallery__item:hover .gallery__img {
+  transform: scale(1.1);
+  filter: grayscale(0);
+}
+
+@media (max-width: 1024px) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery__item {
+    height: 250px;
+  }
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+
+.testimonials {
+  background: var(--color-bg-secondary);
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--color-accent-gold);
+}
+
+.testimonial__text {
+  font-style: italic;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial__author {
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* ============================================
+   PUZZLE MODAL (THE CHAMBER)
+   ============================================ */
+
+.puzzle-chamber {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  /* Mobile browser friendly */
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  padding: 1rem;
+}
+
+.puzzle-chamber.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.puzzle-chamber__content {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid var(--color-accent-gold);
+  padding: 2rem;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  transform: scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
+.puzzle-chamber.active .puzzle-chamber__content {
+  transform: scale(1);
+}
+
+.puzzle-chamber__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Puzzle Elements */
+.puzzle-scene {
+  padding: 1rem 0;
+}
+
+.puzzle__riddle {
+  font-style: italic;
+  color: var(--color-text-secondary);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.puzzle__button {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: 1px solid var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.puzzle__button:hover {
+  background: var(--color-accent-gold);
+  color: #000;
+}
+
+/* Shambala Rings Responsive */
+.celestial-rings {
+  width: 250px;
+  height: 250px;
+  position: relative;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring--outer {
+  width: 100%;
+  height: 100%;
+}
+
+.ring--middle {
+  width: 70%;
+  height: 70%;
+}
+
+.ring--inner {
+  width: 40%;
+  height: 40%;
+}
+
+/* Miercoles Buttons */
+.mechanical-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.casket-btn {
+  background: #222;
+  border: 1px solid #444;
+  color: #888;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.casket-btn.active {
+  background: var(--color-accent-gold);
+  color: #000;
+  box-shadow: 0 0 15px var(--color-accent-gold);
+}
+
+/* ============================================
+   NOTIFICATION
+   ============================================ */
+.cococool-notify {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-200%);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-accent-gold);
+  padding: 1rem 2rem;
+  z-index: 20000;
+  text-align: center;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cococool-notify.active {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: #000;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+}
+
+/* ============================================
+   CHALLENGE TRIGGER
+   ============================================ */
+.challenge-trigger {
+  margin-top: 4rem;
+  border: 1px dashed rgba(212, 175, 55, 0.4);
+  padding: 3rem 1rem;
+  text-align: center;
+  background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.05));
+}
+
+.challenge-trigger__title {
+  color: var(--color-accent-gold);
+  margin-bottom: 0.5rem;
+}
+
+/* Elemental Altar (Shambala Logic Visuals) */
+.elemental-altar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.altar-slot {
+  width: 60px;
+  height: 80px;
+  background: #222;
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.altar-slot:hover {
+  border-color: var(--color-accent-gold);
+}
